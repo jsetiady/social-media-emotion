@@ -1,11 +1,12 @@
+import re
 import tweepy 
 import json
 from tweepy import OAuthHandler
  
-consumer_key = ‘_YOUR_CONSUMER_KEY_’
-consumer_secret = '_YOUR_CONSUMER_KEY_'
-access_token = '_YOUR_ACCESS_TOKEN_’
-access_secret = '_YOUR_SECRET_’
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_secret = ''
  
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
@@ -15,24 +16,27 @@ api = tweepy.API(auth)
 print "["
 
 def process_or_store(tweet):
-    print json.dumps(tweet)
-    print type(tweet)
+    tweet = json.dumps(tweet)
+    tweet = re.sub(r"\\u(.){4}", " ", tweet)
+    print tweet
     print ", "
 
 #for tweet in tweepy.Cursor(api.user_timeline).items():
 #    process_or_store(tweet._json)
-
+'''
 for tweet in tweepy.Cursor(api.search, q="gojek OR go-jek \
 	OR gopay OR go-pay OR goclean OR go-clean \
 	gofood OR go-food OR goride OR go-ride \
 	gocar OR go-car OR gosend OR go-send").items():
     process_or_store(tweet._json)
+'''
 
 
-"""
 for tweet in tweepy.Cursor(api.search, q="gojek OR go-jek").items():
     process_or_store(tweet._json)
 
+print "]"
+'''
 for tweet in tweepy.Cursor(api.search, q="gopay OR go-pay").items():
     process_or_store(tweet._json)
 
@@ -44,7 +48,8 @@ for tweet in tweepy.Cursor(api.search, q="gofood OR go-food").items():
 
 for tweet in tweepy.Cursor(api.search, q="goride OR go-ride").items():
     process_or_store(tweet._json)
-
+'''
+'''
 for tweet in tweepy.Cursor(api.search, q="gocar OR go-car").items():
     process_or_store(tweet._json)
 
@@ -83,9 +88,4 @@ for tweet in tweepy.Cursor(api.search, q="gomed OR go-med").items():
 
 for tweet in tweepy.Cursor(api.search, q="gobusway OR go-busway").items():
     process_or_store(tweet._json)
-
-
-"""    
-print "]"
-
-
+'''
